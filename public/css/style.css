@@ -1,0 +1,59 @@
+body {
+    background: #222831; 
+    padding:4%;
+    text-align: justify;
+    font-size: 20px;
+    color: #f2a51a;
+    height: 100vh;
+    width: 100vw;
+}
+h1{
+    text-align: center;
+    color: #f2a51a;
+  
+}
+
+#submit {
+    width: 18%;
+    height: 10%;
+    border: black solid;
+    margin-left: 5%;
+    font-size: 20px;
+
+}
+.textbox {
+    width: 28%;
+    height: 25px;
+    border: black solid;
+    background-color: #f7f7f7;
+}
+
+.datetime {
+    height: 25px;
+    border: black solid;
+}
+
+.comments {
+    height: 50px;
+}
+table{
+    margin-left: 20px;
+    width: 70%;
+    font-size: 14px;
+    color: #162447;
+    background-color: #00adb5;
+}
+#visitors-table {
+    border: #581c0c solid;
+}
+
+th {
+    border: black solid;
+    padding: 7px;
+    /* background-color: red; */
+}
+
+td {
+    border: black solid;
+    background-color: #f4f4f4;
+}

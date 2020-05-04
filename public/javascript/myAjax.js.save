@@ -1,0 +1,81 @@
+=====$(()=> {
+$('#addVisitor').on('submit', (event)=>{
+    event.preventDefault()
+    let visitorinfo = JSON.stringify({
+        fullname: $('#visitor_name').val(),
+        assistedby: $('#your_name').val(),
+        visitorsage: $('#visitor_age').val(),
+        dateofvisit: $('#date_of_visit').val(),
+        timeofvisit: $('#time_of_visit').val(),
+        comments: $('#comments').val()
+        })
+    $.ajax({
+        
+        url: '/api/addNewVisitor',
+        method: 'POST',
+        contentType: 'application/json',
+        data: visitorinfo,
+        success: (data)=> {
+            console.log(data)
+            let visitorsBody = $('tbody')
+            visitorsBody.html();
+           
+            data.visitors.forEach((visitor) => {
+                visitorsBody.append('\
+                <tr>\
+                    <td class="visitorid">'+visitor.visitorid+'</td>\
+                    <td class="visitorid">'+visitor.fullname+'</td>\
+                    <td class="visitorid">'+visitor.visitorsage+'</td>\
+                    <td class="visitorid">'+visitor.dateofvisit+'</td>\
+                    <td class="visitorid">'+visitor.timeofvisit+'</td>\
+                    <td class="visitorid">'+visitor.assistedby+'</td>\
+                    <td class="visitorid">'+visitor.comments+'</td>\
+                    <td> <button class= "update">Update</button>\
+                    <td> <button class= "delete">Delete</button>\
+                </tr>\
+                ')
+            })
+        }
+     })
+})
+
+    $.ajax({
+        url: '/api/viewVisitors',
+        method: 'GET',
+        contentType: 'application/json',
+        success: (data) => {
+            let visitorsBody = $('tbody')
+            visitorsBody.html();
+           
+            data.visitors.forEach((visitor) => {
+                visitorsBody.append('\
+                <tr>\
+                    <td class="visitorid">'+visitor.visitorid+'</td>\
+                    <td class="fullname">'+visitor.fullname+'</td>\
+                    <td class="visitorsage">'+visitor.visitorsage+'</td>\
+                    <td class="dateofvisit">'+visitor.dateofvisit+'</td>\
+                    <td class="timeofvisit">'+visitor.timeofvisit+'</td>\
+                    <td class="assistedby">'+visitor.assistedby+'</td>\
+                    <td class="comments">'+visitor.comments+'</td>\
+                    <td> <button class= "update">Update</button>\
+                    <td> <button class= "delete">Delete</button>\
+                </tr>\
+                ')
+            })
+        }
+    })
+    $('visitor_table tbody').on('click', '.delete', ()=> {
+        let visitorRow = $(this).closest('tr').remove();
+        let id = visitorRow.find('.visitorid').text()
+
+        $.ajax({ 
+            url: '/api/deletevisitor/' + id,
+            method: 'DELETE',
+            contentType: 'application/json',
+            success: (data) => {
+                console.log(data)
+            }
+        })
+    })
+        
+    })
