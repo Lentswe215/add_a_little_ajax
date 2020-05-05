@@ -1,3 +1,5 @@
+import { response } from "express"
+
 $(()=> {
 $('#addVisitor').on('submit', (event)=>{
     event.preventDefault()
@@ -74,6 +76,35 @@ $('#addVisitor').on('submit', (event)=>{
             contentType: 'application/json',
             success: (data) => {
                 console.log(data)
+            }
+        })
+    })
+
+    $('visitor_table').on('click', '.update', ()=> {
+        let visitorRow = $(this).closest('tr');
+        let id = visitorRow.find('.visitorid').text()
+        let fullname = visitorRow.find('.fullname').val()
+        let visitorsage = visitorRow.find('.visitorsage').val()
+        let dateofvisit = visitorRow.find('.dateofvisit').val()
+        let timeofvisit = visitorRow.find('.timeofvisit').val()
+        let assistedby = visitorRow.find('.assistedby').val()
+        let comments = visitorRow.find('.comments').val()
+        let visitorInfo = JSON.stringify({
+            fullname: $('#visitor_name').val(),
+            assistedby: $('#your_name').val(),
+            visitorsage: $('#visitor_age').val(),
+            dateofvisit: $('#date_of_visit').val(),
+            timeofvisit: $('#time_of_visit').val(),
+            comments: $('#comments').val()
+            })
+
+        $.ajax({
+            url: '/api/updateVisitor/' + id,
+            method: 'PUT',
+            contentType: 'application/json',
+            data: visitorInfo,
+            success: () => {
+                alert("Visitor Updated")
             }
         })
     })

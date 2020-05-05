@@ -19,11 +19,11 @@ router.post("/addNewVisitor", async (req, res) => {
 });
 
 router.delete("/deletevisitor/:id", async (req, res) => {
-  // visitor1 = new Visitors();
+  visitor1 = new Visitors();
 
-  // visitorInfo = await visitor1.deleteVisitor(req.params.id);
+  visitorInfo = await visitor1.deleteVisitor(req.params.id);
 
-  res.send({ visitor: "Hello i am working" });
+  res.send({ visitor: visitorInfo[0]});
 });
 
 router.delete("/deleteVisitors", async (req, res) => {
@@ -49,13 +49,16 @@ router.get("/viewVisitor/:id", async (req, res) => {
   res.json({ visitor: visitorInfo[0] });
 
   router.put("/updateVisitor/:id", async (req, res) => {
-    visitor1 = new Visitors();
+    visitor1 = new Visitors(
+      req.body.fullname,
+      req.body.visitorsage,
+      req.body.dateofvisit,
+      req.body.timeofvisit,
+      req.body.assistedby,
+      req.body.comments);
 
-    visitorInfo = await visitor1.updateVisitorInfo(
-      req.params.id,
-      req.body.column,
-      req.body.newInfo
-    );
+    visitorInfo = await visitor1.updateVisitorInfo(req.body.params);
+  
 
     res.json({ visitor: visitorInfo[0] });
   });
