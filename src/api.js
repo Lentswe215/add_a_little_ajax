@@ -19,11 +19,11 @@ router.post("/addNewVisitor", async (req, res) => {
 });
 
 router.delete("/deletevisitor/:id", async (req, res) => {
-  visitor1 = new Visitors();
+  // visitor1 = new Visitors();
 
-  visitorInfo = await visitor1.deleteVisitor(req.params.id);
+  // visitorInfo = await visitor1.deleteVisitor(req.params.id);
 
-  res.send({ visitor: visitorInfo[0] });
+  res.send({ visitor: "Hello i am working" });
 });
 
 router.delete("/deleteVisitors", async (req, res) => {
