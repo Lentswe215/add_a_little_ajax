@@ -19,7 +19,7 @@ h1{
     border: black solid;
     margin-left: 5%;
     font-size: 20px;
-
+    background-color: green;
 }
 .textbox {
     width: 28%;
@@ -35,6 +35,9 @@ h1{
 
 .comments {
     height: 50px;
+}
+#viewVisitorsbtn {
+    display: none;
 }
 table{
     margin-left: 20px;
@@ -55,5 +58,27 @@ th {
 
 td {
     border: black solid;
-    background-color: #f4f4f4;
+    background-color: whitesmoke;
+}
+.tabletxt {
+    height: 25px;
+}
+.visitorsage {
+    width: 60px;
+}
+.timeofvisit {
+    width: 86px;
+}
+.comments {
+    width: 250px;
+}
+
+.update {
+    background-color: yellow;
+}
+.delete {
+    background-color: red;
+}
+.tbodybtn { 
+    height: 50px;
 }

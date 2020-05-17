@@ -1,67 +1,68 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
 let { Visitors } = require(`./visitor`);
 
-router.post("/addNewVisitor", async (req, res) => {
-  let visitor1 = new Visitors(
-    req.body.fullname,
-    req.body.visitorsage,
-    req.body.dateofvisit,
-    req.body.timeofvisit,
-    req.body.assistedby,
-    req.body.comments
-  );
- 
-  let visitorInfo = await visitor1.addNewVisitor();
+router.post('/addNewVisitor', async (req, res) => {
+	let visitor1 = new Visitors();
 
-  res.send({ visitor: visitorInfo[0] });
+	let visitorInfo = await visitor1.addNewVisitor(
+		req.body.fullname,
+		req.body.visitorsage,
+		req.body.dateofvisit,
+		req.body.timeofvisit,
+		req.body.assistedby,
+		req.body.comments
+	);
+
+	res.send({ visitors: visitorInfo[0] });
 });
 
-router.delete("/deletevisitor/:id", async (req, res) => {
-  visitor1 = new Visitors();
+router.delete('/deletevisitor/:id', async (req, res) => {
+	visitor1 = new Visitors();
+	await visitor1.deleteVisitor(req.params.id);
 
-  visitorInfo = await visitor1.deleteVisitor(req.params.id);
-
-  res.send({ visitor: visitorInfo[0]});
+	visitorInfo = await visitor1.viewAllVisitors();
+	res.json({ visitor: visitorInfo[0] });
 });
 
-router.delete("/deleteVisitors", async (req, res) => {
-  visitor1 = new Visitors();
+router.delete('/deleteVisitors', async (req, res) => {
+	visitor1 = new Visitors();
 
-  visitorInfo = await visitor1.deleteAllVisitors();
-
-  res.json({ visitor: visitorInfo[0] });
+	await visitor1.deleteAllVisitors();
+	visitorInfo = await visitor1.viewAllVisitors();
+	res.json({ visitor: visitorInfo[0] });
 });
 
-router.get("/viewVisitors", async (req, res) => {
-  visitor1 = new Visitors();
+router.get('/viewVisitors', async (req, res) => {
+	visitor1 = new Visitors();
 
-  visitorsinfo = await visitor1.viewAllVisitors();
-  res.send({ visitors: visitorsinfo });
+	visitorsinfo = await visitor1.viewAllVisitors();
+	res.send({ visitors: visitorsinfo });
 });
 
-router.get("/viewVisitor/:id", async (req, res) => {
-  visitor1 = new Visitors();
+router.get('/viewVisitor/:id', async (req, res) => {
+	visitor1 = new Visitors();
 
-  visitorInfo = await visitor1.viewOneVisitor(req.params.id);
+	visitorInfo = await visitor1.viewOneVisitor(req.params.id);
 
-  res.json({ visitor: visitorInfo[0] });
+	res.json({ visitor: visitorInfo[0] });
+});
 
-  router.put("/updateVisitor/:id", async (req, res) => {
-    visitor1 = new Visitors(
-      req.body.fullname,
-      req.body.visitorsage,
-      req.body.dateofvisit,
-      req.body.timeofvisit,
-      req.body.assistedby,
-      req.body.comments);
+router.put('/updateVisitor/:id', async (req, res) => {
+	visitor1 = new Visitors();
 
-    visitorInfo = await visitor1.updateVisitorInfo(req.body.params);
-  
+	let visitorInfo = await visitor1.updateVisitorInfo(
+		req.params.id,
+		req.body.fullname,
+		req.body.visitorsage,
+		req.body.dateofvisit,
+		req.body.timeofvisit,
+		req.body.assistedby,
+		req.body.comments
+	);
 
-    res.json({ visitor: visitorInfo[0] });
-  });
+	res.send({ visitor: visitorInfo[0] });
 });
 
 module.exports = router;
