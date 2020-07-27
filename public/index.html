@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Visitor Information</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1 class="display-1 bg-warning text-center">Visitor Information</h1>
+        <div class="container">
+            <form id="addVisitor">
+                <div class="form-group">
+                    <label for="">Visitor's name </label>
+                    <span class="text-danger">*</span>
+                    <input type="text" name="visitor_name" id="visitor_name" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="">Your name </label>
+                    <span class="text-danger">*</span>
+                    <input type="text" name="your_name" id="your_name" class="form-control" required />
+
+                </div>
+                <div class="form-group">
+                    <label for="">Visitor's age</label>
+                    <span class="text-danger">*</span>
+                    <input type="number" name="visitor_age" id="visitor_age" class="form-control" required />
+
+                </div>
+                <div class="form-group">
+                    <label for="">Date of visit</label>
+                    <span class="text-danger">*</span>
+                    <input type="date" name="date_of_visit" id="date_of_visit" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="">Time of visit</label>
+                    <span class="text-danger">*</span>
+                    <input type="time" name="time_of_visit" id="time_of_visit" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="">Comments</label>
+                    <span class="text-danger">*</span>
+                    <textarea name="comments" id="comments" class="form-control" required></textarea>
+                </div>
+                <button type="submit" id="submit" class="btn btn-outline-success">Submit</button>
+            </form>
+
+        </div>
+
+        <div class="container-fluid mt-4">
+            <h1 class="display-1 bg-info text-center mt-5">Visitors in the database</h1>
+
+            <!-- <button id="viewVisitorsbtn"></button> -->
+            <table class="table table-dark table-sm table-bordered table-striped table-hover mb-5">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fullname</th>
+                        <th>Age</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Assisted By</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody id='table-body'></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="./javascript/jquery.js"></script>
+    <script src="./javascript/myAjax.js"></script>
+</body>
+
+</html>

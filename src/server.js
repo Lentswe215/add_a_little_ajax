@@ -10,7 +10,7 @@ app.use('/api',routes);
 
 app.use(express.static('public'))
 
-app.get('/single-page-app', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname,`../public/visitorForm.html`))
 })
 

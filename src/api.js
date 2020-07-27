@@ -35,10 +35,12 @@ router.delete('/deleteVisitors', async (req, res) => {
 });
 
 router.get('/viewVisitors', async (req, res) => {
+
 	visitor1 = new Visitors();
+	// console.log(req.params)
 
 	visitorsinfo = await visitor1.viewAllVisitors();
-	res.send({ visitors: visitorsinfo });
+	res.json({ visitors: visitorsinfo });
 });
 
 router.get('/viewVisitor/:id', async (req, res) => {

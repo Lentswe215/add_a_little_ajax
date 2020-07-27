@@ -1,21 +1,20 @@
-let {Pool} = require("pg");
+let {Pool, Client} = require("pg");
+require('dotenv').config()
 
-let pool = new Pool({
-    user: "user",
-    password: "pass",
-    host: "localhost",
+
+let client = new Client({
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
     port: 5432,
     database: "visitordb"
 });
 
+client.connect()
+
+
 class Visitors {
-    constructor(fullName, age, dateOfVisit, timeOfVisit, assistedBy, comments) {
-        this.fullName = fullName;
-        this.age = age;
-        this.dateOfVisit = dateOfVisit;
-        this.timeOfVisit = timeOfVisit;
-        this.assistedBy = assistedBy;
-        this.comments = comments;
+    constructor() {
         this.successMessage
         this.errorMessage
         this.myQuery
@@ -24,7 +23,7 @@ class Visitors {
 
     async myTryCatch() {
         try {
-           let results =  await pool.query(this.myQuery, this.myParams)
+           let results =  await client.query(this.myQuery, this.myParams)
            return results 
         } catch (err) {
             throw `${this.errorMessage} ${err}`;
@@ -46,24 +45,27 @@ class Visitors {
         this.errorMessage= "Visitor could not be added"
         let results = await this.myTryCatch()
         return results.rows
-
     }
 
     async viewAllVisitors() {
-        this.myQuery ="SELECT * from visitors"
-        this.errorMessage = "Visitors cannot be listed";
-        let results = await this.myTryCatch();
-        return results.rows
+        try {
+            this.myQuery ="SELECT * from visitors"
+            this.errorMessage = "Visitors cannot be listed";    
+            let results =  await client.query(this.myQuery)
+            return results.rows
+         } catch (err) {
+             throw `${this.errorMessage} ${err}`;
+         } 
     }
 
     async deleteVisitor(visitorid) {
-       
-        this.myQuery ="DELETE from visitors WHERE visitorid = $1" 
+        this.myQuery ="DELETE from visitors WHERE visitorid = $1 RETURNING *" 
         this.myParams = [visitorid];
         this.errorMessage = "Visitor couldn't be deleted";
         this.successMessage = "Visitor successfully deleted";
         let results = await this.myTryCatch();
-        return results
+        // console.log(results.rows)
+        return results.rows
     }
 
     async updateVisitorInfo(visitorid, fullname, visitorsage, dateofvisit, timeofvisit, assistedby, comments) {
@@ -93,6 +95,9 @@ class Visitors {
     }
 }
 
+// let f = new Visitors()
+// f.deleteVisitor(80);
+// f.viewAllVisitors();
 module.exports = {
     Visitors
 };
