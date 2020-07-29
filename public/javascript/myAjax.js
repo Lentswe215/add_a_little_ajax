@@ -42,6 +42,7 @@ $(document).ready(() => {
       location.reload();
     } 
    });
+   console.log(`hell i'm showing`)
 
   //  document.getElementById('date_of_visit').value = new Date()
 
